@@ -69,7 +69,85 @@
 </footer>
 
 <!-- Base JS -->
-<script src="/EasyTrip/public/assets/js/main.js"></script>
+<script src="<?= BASE_URL ?>/assets/js/main.js"></script>
+
+<script>
+    const exchangeRates = {
+        'USD': 1,
+        'EUR': 0.93,
+        'PKR': 278
+    };
+
+    const symbols = {
+        'USD': 'US$',
+        'EUR': '€',
+        'PKR': 'Rs '
+    };
+
+    function updateCurrency(curr) {
+        localStorage.setItem('selectedCurrency', curr);
+        applyCurrency();
+    }
+
+    function applyCurrency() {
+        const curr = localStorage.getItem('selectedCurrency') || 'USD';
+        const selector = document.getElementById('currencySelector');
+        if (selector) selector.value = curr;
+
+        // Only apply to hotel prices (assuming hotel pages have .htl-price-val, .room-price, .booking-price, etc.)
+        const priceElements = document.querySelectorAll('.htl-price-val, .room-price, .booking-price, .hotel-price');
+        
+        priceElements.forEach(el => {
+            // Save original USD price if not already saved
+            if (!el.hasAttribute('data-usd')) {
+                // Extract number from US$199 or $199
+                let text = el.innerText;
+                let num = text.replace(/[^0-9.]/g, '');
+                if (num) {
+                    el.setAttribute('data-usd', num);
+                    // Also save any suffix like "/night"
+                    if (text.includes('/night')) {
+                        el.setAttribute('data-suffix', '/night');
+                    }
+                }
+            }
+            
+            const usdVal = parseFloat(el.getAttribute('data-usd'));
+            if (!isNaN(usdVal)) {
+                let converted = usdVal * exchangeRates[curr];
+                let formatted = Math.round(converted).toLocaleString();
+                let suffix = el.getAttribute('data-suffix') || '';
+                
+                el.innerHTML = `${symbols[curr]}${formatted} <span style="font-size:var(--font-size-sm); font-weight:normal;">${suffix}</span>`;
+            }
+        });
+
+        // Also update filter labels
+        const filterLabels = document.querySelectorAll('.checkbox-group label');
+        filterLabels.forEach(label => {
+            if (label.innerText.includes('US$')) {
+                if (!label.hasAttribute('data-original-text')) {
+                    label.setAttribute('data-original-text', label.innerText);
+                }
+            }
+            
+            if (label.hasAttribute('data-original-text')) {
+                let originalText = label.getAttribute('data-original-text');
+                
+                // e.g. "US$0 - US$50" or "US$100 +"
+                let newText = originalText.replace(/US\$([0-9]+)/g, (match, p1) => {
+                    let num = parseInt(p1);
+                    let converted = Math.round(num * exchangeRates[curr]);
+                    return symbols[curr] + converted.toLocaleString();
+                });
+                
+                label.innerText = newText;
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', applyCurrency);
+</script>
 
 </body>
 </html>

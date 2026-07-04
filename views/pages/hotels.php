@@ -11,7 +11,7 @@ $hotels = $data['hotels'];
 ?>
 
 <!-- Inject Custom Listing CSS -->
-<link rel="stylesheet" href="/EasyTrip/public/assets/css/pages/hotel-listing.css">
+<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/pages/hotel-listing.css">
 
 <div class="container">
     <div class="listing-container">
@@ -19,7 +19,7 @@ $hotels = $data['hotels'];
         <aside class="filters-sidebar">
             <h3 class="filter-title" style="font-size: 18px; border-bottom: 1px solid #e7e7e7; padding-bottom: 12px; margin-bottom: 16px;">Filter by:</h3>
             
-            <form method="GET" action="/EasyTrip/public/hotels" id="filterForm">
+            <form method="GET" action="<?= BASE_URL ?>/hotels" id="filterForm">
                 <!-- Keep existing destination/dates if any -->
                 <input type="hidden" name="destination" value="<?= htmlspecialchars($_GET['destination'] ?? '') ?>">
                 <input type="hidden" name="dates" value="<?= htmlspecialchars($_GET['dates'] ?? '') ?>">
@@ -95,14 +95,14 @@ $hotels = $data['hotels'];
                     ?>
                         <article class="htl-card">
                             <div class="htl-img-wrapper">
-                                <a href="/EasyTrip/public/hotel-detail?id=<?= $hotel['id'] ?>" style="display: block; height: 100%;">
+                                <a href="<?= BASE_URL ?>/hotel-detail?id=<?= $hotel['id'] ?>" style="display: block; height: 100%;">
                                     <img src="<?= $img ?>" alt="<?= htmlspecialchars($hotel['name']) ?>">
                                 </a>
                             </div>
                             <div class="htl-content">
                                 <div class="htl-header-row">
                                     <div>
-                                        <a href="/EasyTrip/public/hotel-detail?id=<?= $hotel['id'] ?>" class="htl-name">
+                                        <a href="<?= BASE_URL ?>/hotel-detail?id=<?= $hotel['id'] ?>" class="htl-name">
                                             <?= htmlspecialchars($hotel['name']) ?>
                                         </a>
                                         <div class="htl-location-wrap">
@@ -148,7 +148,7 @@ $hotels = $data['hotels'];
                                             <div class="htl-price-label">Price from</div>
                                             <div class="htl-price-val">US$<?= $hotel['min_price'] ?></div>
                                         <?php endif; ?>
-                                        <a href="/EasyTrip/public/hotel-detail?id=<?= $hotel['id'] ?>" class="htl-btn-primary">See availability <i class="fa-solid fa-chevron-right" style="margin-left:4px; font-size:12px;"></i></a>
+                                        <a href="<?= BASE_URL ?>/hotel-detail?id=<?= $hotel['id'] ?>" class="htl-btn-primary">See availability <i class="fa-solid fa-chevron-right" style="margin-left:4px; font-size:12px;"></i></a>
                                     </div>
                                 </div>
                             </div>

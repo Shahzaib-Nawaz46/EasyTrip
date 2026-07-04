@@ -18,6 +18,17 @@ class HomeController {
             }
         }
 
+        // Fetch distinct cities for the destination dropdown
+        $citiesQuery = "SELECT DISTINCT city FROM hotels ORDER BY city";
+        $availableCities = [];
+        if ($res = $this->conn->query($citiesQuery)) {
+            while ($row = $res->fetch_assoc()) {
+                if (!empty($row['city'])) {
+                    $availableCities[] = $row['city'];
+                }
+            }
+        }
+
         // Pass data to view by requiring it
         require_once __DIR__ . '/../../views/pages/home.php';
     }

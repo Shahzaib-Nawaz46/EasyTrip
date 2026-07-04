@@ -23,12 +23,18 @@
             <div id="tpwl-tickets" style="display: none;"></div>
             <!-- Hotels Pane -->
             <div id="local-hotel-search" class="search-pane" style="display: none;">
-                <form action="/EasyTrip/public/hotels" method="GET" class="hotel-search-form">
+                <form action="<?= BASE_URL ?>/hotels" method="GET" class="hotel-search-form">
                     <div class="form-field-group" style="flex-grow: 1;">
                         <label class="form-label" style="font-size: 1rem;">Destination</label>
                         <div style="position:relative;">
                             <i class="fa-solid fa-bed" style="position:absolute; left:16px; top:50%; transform:translateY(-50%); color:var(--text-muted);"></i>
-                            <input type="text" name="destination" class="form-control" placeholder="Where are you going?" style="padding-left: 45px; height: 50px;">
+                            <select name="destination" class="form-control" style="padding-left: 45px; height: 50px; appearance: none; -webkit-appearance: none; background-color: #fff; cursor: pointer;">
+                                <option value="" disabled selected>Where are you going?</option>
+                                <?php if(isset($availableCities)): foreach($availableCities as $city): ?>
+                                    <option value="<?= htmlspecialchars($city) ?>"><?= htmlspecialchars($city) ?></option>
+                                <?php endforeach; endif; ?>
+                            </select>
+                            <i class="fa-solid fa-chevron-down" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-size:12px; pointer-events:none;"></i>
                         </div>
                     </div>
                     <div class="form-field-group">
@@ -96,7 +102,7 @@
             <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=800&auto=format&fit=crop" alt="Dubai">
             <div class="premium-dest-overlay">
                 <h3 class="premium-dest-title">Dubai</h3>
-                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/ae.png" alt="AE" style="display:inline; width:16px;"> United Arab Emirates</span>
+                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/ae.png" alt="AE" style="display:inline-block; height:14px; width:auto; border-radius:2px; vertical-align:middle;"> United Arab Emirates</span>
             </div>
         </div>
         <!-- Destination 2 -->
@@ -104,7 +110,7 @@
             <img src="https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?q=80&w=800&auto=format&fit=crop" alt="Switzerland">
             <div class="premium-dest-overlay">
                 <h3 class="premium-dest-title">Zurich</h3>
-                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/ch.png" alt="CH" style="display:inline; width:16px;"> Switzerland</span>
+                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/ch.png" alt="CH" style="display:inline-block; height:14px; width:auto; border-radius:2px; vertical-align:middle;"> Switzerland</span>
             </div>
         </div>
         <!-- Destination 3 -->
@@ -112,7 +118,7 @@
             <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=800&auto=format&fit=crop" alt="Maldives">
             <div class="premium-dest-overlay">
                 <h3 class="premium-dest-title">Maldives</h3>
-                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/mv.png" alt="MV" style="display:inline; width:16px;"> Maldives</span>
+                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/mv.png" alt="MV" style="display:inline-block; height:14px; width:auto; border-radius:2px; vertical-align:middle;"> Maldives</span>
             </div>
         </div>
         <!-- Destination 4 -->
@@ -120,7 +126,7 @@
             <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=800&auto=format&fit=crop" alt="New York">
             <div class="premium-dest-overlay">
                 <h3 class="premium-dest-title">New York</h3>
-                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/us.png" alt="US" style="display:inline; width:16px;"> United States</span>
+                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/us.png" alt="US" style="display:inline-block; height:14px; width:auto; border-radius:2px; vertical-align:middle;"> United States</span>
             </div>
         </div>
         <!-- Destination 5 -->
@@ -128,7 +134,7 @@
             <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=800&auto=format&fit=crop" alt="Paris">
             <div class="premium-dest-overlay">
                 <h3 class="premium-dest-title">Paris</h3>
-                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/fr.png" alt="FR" style="display:inline; width:16px;"> France</span>
+                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/fr.png" alt="FR" style="display:inline-block; height:14px; width:auto; border-radius:2px; vertical-align:middle;"> France</span>
             </div>
         </div>
         <!-- Destination 6 -->
@@ -136,15 +142,15 @@
             <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=800&auto=format&fit=crop" alt="Tokyo">
             <div class="premium-dest-overlay">
                 <h3 class="premium-dest-title">Tokyo</h3>
-                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/jp.png" alt="JP" style="display:inline; width:16px;"> Japan</span>
+                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/jp.png" alt="JP" style="display:inline-block; height:14px; width:auto; border-radius:2px; vertical-align:middle;"> Japan</span>
             </div>
         </div>
         <!-- Destination 7 -->
         <div class="premium-dest-card">
-            <img src="https://images.unsplash.com/photo-1522083111811-9a742da09b8c?q=80&w=800&auto=format&fit=crop" alt="London">
+            <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=800&auto=format&fit=crop" alt="London">
             <div class="premium-dest-overlay">
                 <h3 class="premium-dest-title">London</h3>
-                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/gb.png" alt="UK" style="display:inline; width:16px;"> United Kingdom</span>
+                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/gb.png" alt="UK" style="display:inline-block; height:14px; width:auto; border-radius:2px; vertical-align:middle;"> United Kingdom</span>
             </div>
         </div>
         <!-- Destination 8 -->
@@ -152,39 +158,8 @@
             <img src="https://images.unsplash.com/photo-1555899434-94d1368aa7af?q=80&w=800&auto=format&fit=crop" alt="Istanbul">
             <div class="premium-dest-overlay">
                 <h3 class="premium-dest-title">Istanbul</h3>
-                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/tr.png" alt="TR" style="display:inline; width:16px;"> Turkey</span>
+                <span class="premium-dest-subtitle"><img src="https://flagcdn.com/w20/tr.png" alt="TR" style="display:inline-block; height:14px; width:auto; border-radius:2px; vertical-align:middle;"> Turkey</span>
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- 7. Travel Categories -->
-<div class="container section-padding">
-    <h2 class="section-title">Explore by Category</h2>
-    <div class="grid-6">
-        <div class="category-card">
-            <i class="fa-solid fa-gem category-icon"></i>
-            <div class="category-title">Luxury</div>
-        </div>
-        <div class="category-card">
-            <i class="fa-solid fa-wallet category-icon"></i>
-            <div class="category-title">Budget</div>
-        </div>
-        <div class="category-card">
-            <i class="fa-solid fa-umbrella-beach category-icon"></i>
-            <div class="category-title">Beach</div>
-        </div>
-        <div class="category-card">
-            <i class="fa-solid fa-mountain category-icon"></i>
-            <div class="category-title">Mountain</div>
-        </div>
-        <div class="category-card">
-            <i class="fa-solid fa-users category-icon"></i>
-            <div class="category-title">Family</div>
-        </div>
-        <div class="category-card">
-            <i class="fa-solid fa-briefcase category-icon"></i>
-            <div class="category-title">Business</div>
         </div>
     </div>
 </div>
@@ -202,7 +177,7 @@
                 $img = (!empty($images) && isset($images[0])) ? $images[0] : 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=600&auto=format&fit=crop';
         ?>
         <div class="hotel-card">
-            <a href="/EasyTrip/public/hotel-detail?id=<?= $hotel['id'] ?>" style="text-decoration: none; color: inherit; display: block;">
+            <a href="<?= BASE_URL ?>/hotel-detail?id=<?= $hotel['id'] ?>" style="text-decoration: none; color: inherit; display: block;">
                 <img src="<?= htmlspecialchars($img) ?>" class="hotel-card-img" alt="<?= htmlspecialchars($hotel['name']) ?>">
             </a>
             <div class="hotel-card-body">
@@ -211,7 +186,7 @@
                     <span class="fw-medium">Excellent</span>
                 </div>
                 <h3 class="hotel-title">
-                    <a href="/EasyTrip/public/hotel-detail?id=<?= $hotel['id'] ?>" style="text-decoration: none; color: inherit;">
+                    <a href="<?= BASE_URL ?>/hotel-detail?id=<?= $hotel['id'] ?>" style="text-decoration: none; color: inherit;">
                         <?= htmlspecialchars($hotel['name']) ?>
                     </a>
                 </h3>
@@ -222,7 +197,7 @@
                         <!-- Default price for now -->
                         <div class="hotel-price">$199 <span style="font-size:var(--font-size-sm); font-weight:normal;">/night</span></div>
                     </div>
-                    <a href="/EasyTrip/public/hotel-detail?id=<?= $hotel['id'] ?>" class="btn btn-primary btn-sm">View Deal</a>
+                    <a href="<?= BASE_URL ?>/hotel-detail?id=<?= $hotel['id'] ?>" class="btn btn-primary btn-sm">View Deal</a>
                 </div>
             </div>
         </div>
@@ -304,7 +279,7 @@
     seraph-accel-crit="1"
     data-no-defer="1">
     window.TPWL_CONFIGURATION = {
-        resultsURL: '/EasyTrip/public/flights'
+        resultsURL: '/flights'
     };
     
     (function () {

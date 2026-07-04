@@ -391,7 +391,7 @@
 <div class="hotel-container">
     <!-- Breadcrumbs -->
     <div class="breadcrumb-area">
-        <a href="/EasyTrip/public/">Home</a> > 
+        <a href="<?= BASE_URL ?>/">Home</a> > 
         <a href="#"><?= htmlspecialchars($hotel['city']) ?></a> > 
         <span><?= htmlspecialchars($hotel['name']) ?></span>
     </div>
@@ -586,7 +586,7 @@
                         </div>
                     </div>
 
-                    <form id="checkout-form" action="/EasyTrip/public/checkout" method="POST">
+                    <form id="checkout-form" action="<?= BASE_URL ?>/checkout" method="POST">
                         <input type="hidden" name="hotel_id" value="<?= $hotel['id'] ?>">
                         
                         <input type="hidden" name="dates" value="<?= htmlspecialchars($dates) ?>">

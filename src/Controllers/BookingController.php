@@ -10,7 +10,7 @@ class BookingController {
 
     public function checkout() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: /EasyTrip/public/');
+            header('Location: ' . BASE_URL . '/');
             exit;
         }
 
@@ -84,7 +84,7 @@ class BookingController {
             $stmt->bind_param("iiissd", $user_id, $hotel_id, $room_id, $check_in, $check_out, $total_price);
             
             if ($stmt->execute()) {
-                header('Location: /EasyTrip/public/booking-success');
+                header('Location: ' . BASE_URL . '/booking-success');
                 exit;
             } else {
                 echo "<script>alert('Booking Failed. Please try again.'); window.history.back();</script>";

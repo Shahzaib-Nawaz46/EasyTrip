@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login - EasyTrip</title>
-    <link rel="stylesheet" href="/EasyTrip/public/assets/css/main.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/main.css">
     <style>
         body {
             background-color: #f5f5f5;
@@ -78,7 +78,7 @@
     <?php if(!empty($error)): ?>
         <div class="error-msg"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
-    <form method="POST" action="/EasyTrip/public/admin/login">
+    <form method="POST" action="<?= BASE_URL ?>/admin/login">
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" class="form-control" required autofocus>

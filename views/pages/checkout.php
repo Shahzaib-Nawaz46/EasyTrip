@@ -76,7 +76,7 @@
     <div class="checkout-form">
         <h1 style="font-size: 28px; font-weight: bold; margin-bottom: 24px;">Secure your booking</h1>
 
-        <form action="/EasyTrip/public/book" method="POST">
+        <form action="<?= BASE_URL ?>/book" method="POST">
             <input type="hidden" name="hotel_id" value="<?= $hotel_id ?>">
             <input type="hidden" name="room_id" value="<?= $room_id ?>">
             <input type="hidden" name="dates" value="<?= htmlspecialchars($dates) ?>">

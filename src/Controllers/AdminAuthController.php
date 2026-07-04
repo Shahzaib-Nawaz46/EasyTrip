@@ -19,7 +19,7 @@ class AdminAuthController {
                 if ($password === $admin['password']) {
                     $_SESSION['admin_logged_in'] = true;
                     $_SESSION['admin_username'] = $admin['username'];
-                    header("Location: /EasyTrip/public/admin");
+                    header("Location: " . BASE_URL . "/admin");
                     exit;
                 } else {
                     $error = 'Invalid credentials';
@@ -34,7 +34,7 @@ class AdminAuthController {
 
     public function logout() {
         session_destroy();
-        header("Location: /EasyTrip/public/admin/login");
+        header("Location: " . BASE_URL . "/admin/login");
         exit;
     }
 }

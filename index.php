@@ -16,11 +16,16 @@ error_reporting(E_ALL);
 session_start();
 
 // Database connection
-require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/config/db.php';
 
 // Basic Routing
 $request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$base_path = '/EasyTrip/public'; // Adjust if needed
+$base_path = dirname($_SERVER['SCRIPT_NAME']);
+if ($base_path === '/' || $base_path === '\\') {
+    $base_path = '';
+}
+define('BASE_URL', $base_path);
+
 
 // Remove base path from URI
 $path = str_replace($base_path, '', $request_uri);
@@ -37,61 +42,61 @@ if (strpos($path, '/admin') === 0 && $path !== '/admin/login') {
 // Controller routing
 switch ($path) {
     case '/':
-        require_once __DIR__ . '/../src/Controllers/HomeController.php';
+        require_once __DIR__ . '/src/Controllers/HomeController.php';
         $controller = new \EasyTrip\Controllers\HomeController($conn);
         $controller->index();
         break;
         
     case '/flights':
-        require_once __DIR__ . '/../views/pages/flights.php';
+        require_once __DIR__ . '/views/pages/flights.php';
         break;
         
     case '/hotels':
-        require_once __DIR__ . '/../views/pages/hotels.php';
+        require_once __DIR__ . '/views/pages/hotels.php';
         break;
         
     case '/hotel-detail':
-        require_once __DIR__ . '/../src/Controllers/HotelController.php';
+        require_once __DIR__ . '/src/Controllers/HotelController.php';
         $controller = new \EasyTrip\Controllers\HotelController($conn);
         $controller->show();
         break;
 
     case '/checkout':
-        require_once __DIR__ . '/../src/Controllers/BookingController.php';
+        require_once __DIR__ . '/src/Controllers/BookingController.php';
         $controller = new \EasyTrip\Controllers\BookingController($conn);
         $controller->checkout();
         break;
 
     case '/book':
-        require_once __DIR__ . '/../src/Controllers/BookingController.php';
+        require_once __DIR__ . '/src/Controllers/BookingController.php';
         $controller = new \EasyTrip\Controllers\BookingController($conn);
         $controller->store();
         break;
         
     case '/booking-success':
-        require_once __DIR__ . '/../views/pages/booking-success.php';
+        require_once __DIR__ . '/views/pages/booking-success.php';
         break;
         
     case '/admin/login':
-        require_once __DIR__ . '/../src/Controllers/AdminAuthController.php';
+        require_once __DIR__ . '/src/Controllers/AdminAuthController.php';
         $authController = new \EasyTrip\Controllers\AdminAuthController();
         $authController->login();
         break;
         
     case '/admin/logout':
-        require_once __DIR__ . '/../src/Controllers/AdminAuthController.php';
+        require_once __DIR__ . '/src/Controllers/AdminAuthController.php';
         $authController = new \EasyTrip\Controllers\AdminAuthController();
         $authController->logout();
         break;
         
     case '/admin':
-        require_once __DIR__ . '/../src/Controllers/AdminController.php';
+        require_once __DIR__ . '/src/Controllers/AdminController.php';
         $adminController = new \EasyTrip\Controllers\AdminController($conn);
         $adminController->dashboard();
         break;
         
     case '/admin/hotels':
-        require_once __DIR__ . '/../views/admin/pages/hotels.php';
+        require_once __DIR__ . '/views/admin/pages/hotels.php';
         break;
         
     default:

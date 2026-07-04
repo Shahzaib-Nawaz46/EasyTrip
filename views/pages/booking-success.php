@@ -18,7 +18,7 @@
             <p style="margin: 0; font-size: 14px; color: #1a1a1a;">You chose to <strong>Pay at Hotel</strong>. Please ensure you have a valid payment method upon arrival. Safe travels!</p>
         </div>
         
-        <a href="/EasyTrip/public/" class="btn btn-primary" style="padding: 14px 32px; font-size: 16px; font-weight: bold; border-radius: 8px; text-decoration: none;">Return to Home</a>
+        <a href="<?= BASE_URL ?>/" class="btn btn-primary" style="padding: 14px 32px; font-size: 16px; font-weight: bold; border-radius: 8px; text-decoration: none;">Return to Home</a>
         
     </div>
 
