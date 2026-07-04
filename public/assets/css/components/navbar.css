@@ -73,6 +73,35 @@
     .navbar-menu {
         display: none !important; /* Force hide main links on tablet/mobile */
     }
+    .navbar-menu.active {
+        display: flex !important;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        flex-direction: column;
+        padding: 0;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        border-top: 1px solid var(--border-color);
+        z-index: 1050;
+    }
+    .navbar-menu.active .navbar-nav {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+    }
+    .navbar-menu.active .navbar-nav li {
+        width: 100%;
+    }
+    .navbar-menu.active .navbar-nav a {
+        padding: 1rem 2rem;
+        display: block;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .navbar-menu.active .navbar-nav a:last-child {
+        border-bottom: none;
+    }
     .hide-on-mobile {
         display: none !important;
     }

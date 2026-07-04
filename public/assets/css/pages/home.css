@@ -66,50 +66,53 @@
 /* --- 2. Hero Section --- */
 .hero-fullscreen {
     position: relative;
-    height: 700px;
+    padding: 5rem 1rem 7rem 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2560&auto=format&fit=crop'); /* Dubai / UAE Vibe */
+    background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2560&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     color: var(--white);
-    padding: 0 var(--space-4);
 }
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.65) 100%);
     z-index: 1;
 }
 .hero-content {
     position: relative;
     z-index: 2;
-    margin-bottom: 100px; /* Space for floating search card */
+    margin-bottom: 2rem;
+    max-width: 700px;
+    padding: 0 1rem;
 }
 .hero-content h1 {
-    font-size: 4rem; /* Massive heading */
+    font-size: 3rem;
     font-weight: 800;
     color: var(--white);
-    margin-bottom: var(--space-4);
-    text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    margin-bottom: var(--space-3);
+    text-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    line-height: 1.2;
 }
 .hero-content p {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
     text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    opacity: 0.95;
 }
 
 /* --- 3. Floating Search Card --- */
 .floating-search-wrapper {
     position: absolute;
-    bottom: -80px; /* Floating out of the hero */
+    bottom: -60px;
     left: 50%;
     transform: translateX(-50%);
     width: 95%;
-    max-width: 1200px;
+    max-width: 1100px;
     z-index: 10;
 }
 .search-tabs-container {
@@ -227,9 +230,9 @@
 
 /* Footer Styling */
 .site-footer {
-    background: var(--bg-main);
-    padding-top: var(--space-16);
-    border-top: 1px solid var(--border-color);
+    background: #0D1B2A; /* Rich Dark Navy */
+    color: var(--white);
+    padding-top: var(--space-12);
 }
 .footer-grid {
     display: grid;
@@ -237,74 +240,107 @@
     gap: var(--space-8);
     margin-bottom: var(--space-12);
 }
-.footer-brand { font-size: var(--font-size-2xl); color: var(--primary-blue); margin-bottom: var(--space-3); }
-.footer-desc { color: var(--text-muted); line-height: 1.6; margin-bottom: var(--space-4); }
-.social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: var(--white); border-radius: 50%; color: var(--text-main); margin-right: 8px; box-shadow: var(--shadow-sm); transition: all 0.2s;}
+.footer-brand { font-size: var(--font-size-2xl); color: var(--white); margin-bottom: var(--space-3); }
+.footer-desc { color: var(--white); opacity: 0.8; line-height: 1.6; margin-bottom: var(--space-4); }
+.social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 50%; color: var(--white); margin-right: 8px; box-shadow: var(--shadow-sm); transition: all 0.2s;}
 .social-links a:hover { background: var(--primary-blue); color: white; transform: translateY(-3px); }
-.footer-col h4 { font-size: var(--font-size-base); margin-bottom: var(--space-4); color: var(--black); }
-.footer-col ul { display: flex; flex-direction: column; gap: var(--space-3); }
-.footer-col a { color: var(--text-muted); font-size: var(--font-size-sm); }
-.footer-col a:hover { color: var(--primary-blue); text-decoration: underline; }
-.footer-bottom { background: var(--white); padding: var(--space-4) 0; border-top: 1px solid var(--border-color); }
-.footer-bottom-inner { display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: var(--font-size-sm); }
-.payment-methods { display: flex; gap: 12px; font-size: 1.5rem; color: var(--text-muted); }
+.footer-col h4 { font-size: var(--font-size-base); margin-bottom: var(--space-4); color: var(--white); }
+.footer-col ul { display: flex; flex-direction: column; gap: var(--space-3); padding: 0; margin: 0; list-style: none; }
+.footer-col a { color: var(--white); opacity: 0.8; font-size: var(--font-size-sm); text-decoration: none; }
+.footer-col a:hover { color: var(--white); opacity: 1; text-decoration: underline; }
+.footer-bottom { background: #050E17; /* Even Darker Navy for bottom */ padding: var(--space-4) 0; }
+.footer-bottom-inner { display: flex; justify-content: space-between; align-items: center; color: var(--white); opacity: 0.8; font-size: var(--font-size-sm); }
+.payment-methods { display: flex; gap: 12px; font-size: 1.5rem; color: var(--white); opacity: 0.8; }
 
-/* Newsletter */
-.newsletter-section {
-    background: var(--primary-dark-blue);
-    color: var(--white);
-    padding: var(--space-12) 0;
-    text-align: center;
-    border-radius: var(--radius-xl);
-    margin: var(--space-12) auto;
-    width: 95%;
-    max-width: 1400px;
-}
-.newsletter-form { display: flex; max-width: 500px; margin: var(--space-6) auto 0; gap: 8px; }
-.newsletter-form .btn { padding: var(--space-4) var(--space-6); }
+
 
 /* --- Responsive Design (Media Queries) --- */
 
 /* Tablet (Max 992px) */
 @media (max-width: 992px) {
-    .hero-fullscreen { height: 500px; }
-    .hero-content h1 { font-size: 2.5rem; }
-    
-    .grid-4, .grid-6, .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
+    /* Hero becomes stacked: text on top, search below — no overlap */
+    .hero-fullscreen {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 3rem 1rem 1.5rem 1rem;
+        min-height: unset;
     }
-    
+    .hero-content h1 { font-size: 2.2rem; }
+    .hero-content { margin-bottom: 1.5rem; }
+
     .floating-search-wrapper {
         position: relative;
         bottom: 0;
-        margin-top: -60px;
+        left: 0;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        z-index: 2;
+        padding: 0 1rem;
+        margin-bottom: 1rem;
     }
-    .spacer-after-hero { height: 40px; }
+    .spacer-after-hero { height: 20px; }
+
+    .grid-4, .grid-6 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 /* Mobile (Max 768px) */
 @media (max-width: 768px) {
-    .hero-fullscreen { height: 400px; }
-    .hero-content h1 { font-size: 2rem; }
-    .hero-content p { font-size: 1rem; }
-    
-    .grid-4, .grid-6, .footer-grid {
+    .hero-fullscreen {
+        padding: 2.5rem 1rem 1.5rem 1rem;
+    }
+    .hero-content h1 { font-size: 1.75rem; }
+    .hero-content p { font-size: 0.9rem; }
+    .hero-content { margin-bottom: 1.2rem; }
+
+    .floating-search-wrapper {
+        padding: 0 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .search-tab {
+        padding: var(--space-2) var(--space-4);
+        font-size: var(--font-size-sm);
+    }
+    .search-card-glass { padding: var(--space-3); border-radius: var(--radius-lg); }
+    .spacer-after-hero { height: 12px; }
+
+    /* Popular Destinations: 2 columns, shorter cards on mobile */
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-3);
+    }
+    .grid-4 .premium-dest-card {
+        aspect-ratio: 4/3;
+    }
+    .premium-dest-title { font-size: var(--font-size-sm); }
+    .premium-dest-subtitle { font-size: var(--font-size-xs); }
+
+    .grid-6 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .category-card { padding: var(--space-3) var(--space-2); }
+    .category-icon { font-size: 1.25rem; }
+    .category-title { font-size: var(--font-size-xs); }
+
+    .footer-grid {
         grid-template-columns: 1fr;
     }
-    
-    .section-padding { padding: var(--space-8) 0; }
-    .section-title { font-size: 1.75rem; }
-    
-    .newsletter-form { flex-direction: column; }
-    
-    .footer-bottom-inner { flex-direction: column; gap: 1rem; text-align: center; }
-    
-    .search-card-glass { padding: var(--space-4); }
-    
+
+    .section-padding { padding: var(--space-6) 0; }
+    .section-title { font-size: 1.4rem; }
+    .section-subtitle { font-size: 0.85rem; }
+
+    .footer-bottom-inner { flex-direction: column; gap: 0.75rem; text-align: center; }
+
     .hotel-search-form {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.75rem;
     }
 }
 

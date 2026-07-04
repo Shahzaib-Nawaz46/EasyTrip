@@ -33,11 +33,46 @@
                     </div>
                     <div class="form-field-group">
                         <label class="form-label" style="font-size: 1rem;">Check-in - Check-out</label>
-                        <input type="text" class="form-control" placeholder="Select dates" style="height: 50px;">
+                        <input type="text" name="dates" id="dateRange" class="form-control" placeholder="Select dates" style="height: 50px;">
                     </div>
-                    <div class="form-field-group">
+                    <div class="form-field-group dropdown" style="position: relative;">
                         <label class="form-label" style="font-size: 1rem;">Guests</label>
-                        <input type="text" class="form-control" placeholder="2 adults, 1 room" style="height: 50px;">
+                        <div class="form-control" style="height: 50px; display: flex; align-items: center; cursor: pointer; justify-content: space-between;" id="guestDropdownToggle" onclick="toggleGuestDropdown(event)">
+                            <span id="guestSummary">2 adults, 0 children, 1 room</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: var(--text-muted);"></i>
+                        </div>
+                        
+                        <div id="guestDropdownMenu" class="custom-guest-dropdown">
+                            <div class="guest-row">
+                                <span>Adults</span>
+                                <div class="guest-controls">
+                                    <button type="button" class="guest-btn" onclick="updateGuest('adults', -1)">-</button>
+                                    <span class="guest-count" id="adultsCount">2</span>
+                                    <button type="button" class="guest-btn" onclick="updateGuest('adults', 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="guest-row">
+                                <span>Children</span>
+                                <div class="guest-controls">
+                                    <button type="button" class="guest-btn" onclick="updateGuest('children', -1)">-</button>
+                                    <span class="guest-count" id="childrenCount">0</span>
+                                    <button type="button" class="guest-btn" onclick="updateGuest('children', 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="guest-row" style="margin-bottom: 0;">
+                                <span>Rooms</span>
+                                <div class="guest-controls">
+                                    <button type="button" class="guest-btn" onclick="updateGuest('rooms', -1)">-</button>
+                                    <span class="guest-count" id="roomsCount">1</span>
+                                    <button type="button" class="guest-btn" onclick="updateGuest('rooms', 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Hidden inputs for form submission -->
+                        <input type="hidden" name="adults" id="inputAdults" value="2">
+                        <input type="hidden" name="children" id="inputChildren" value="0">
+                        <input type="hidden" name="rooms" id="inputRooms" value="1">
                     </div>
                     <div class="form-field-btn">
                         <button type="submit" class="btn btn-primary btn-lg" style="height: 50px; padding: 0 2rem; width: 100%;">Search</button>
@@ -160,103 +195,108 @@
     <p class="section-subtitle">Top-rated stays highly recommended by guests</p>
     
     <div class="grid-4">
-        <!-- Hotel 1 -->
+        <?php
+        if (isset($featuredHotels) && count($featuredHotels) > 0):
+            foreach ($featuredHotels as $hotel):
+                $images = json_decode($hotel['image_urls']);
+                $img = (!empty($images) && isset($images[0])) ? $images[0] : 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=600&auto=format&fit=crop';
+        ?>
         <div class="hotel-card">
-            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=600&auto=format&fit=crop" class="hotel-card-img" alt="Hotel">
+            <a href="/EasyTrip/public/hotel-detail?id=<?= $hotel['id'] ?>" style="text-decoration: none; color: inherit; display: block;">
+                <img src="<?= htmlspecialchars($img) ?>" class="hotel-card-img" alt="<?= htmlspecialchars($hotel['name']) ?>">
+            </a>
             <div class="hotel-card-body">
                 <div class="hotel-rating">
-                    <span class="rating-badge">9.2</span>
-                    <span class="fw-medium">Superb</span>
-                    <span class="hotel-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
+                    <span class="rating-badge"><?= $hotel['rating_score'] ?></span>
+                    <span class="fw-medium">Excellent</span>
                 </div>
-                <h3 class="hotel-title">Grand Resort Maldives</h3>
-                <p class="hotel-location"><i class="fa-solid fa-location-dot"></i> Male City, Maldives</p>
+                <h3 class="hotel-title">
+                    <a href="/EasyTrip/public/hotel-detail?id=<?= $hotel['id'] ?>" style="text-decoration: none; color: inherit;">
+                        <?= htmlspecialchars($hotel['name']) ?>
+                    </a>
+                </h3>
+                <p class="hotel-location"><i class="fa-solid fa-location-dot"></i> <?= htmlspecialchars($hotel['city']) ?></p>
                 <div class="hotel-price-row">
                     <div>
                         <span style="font-size: var(--font-size-sm); color: var(--text-muted);">Starting from</span>
-                        <div class="hotel-price">$450 <span style="font-size:var(--font-size-sm); font-weight:normal;">/night</span></div>
+                        <!-- Default price for now -->
+                        <div class="hotel-price">$199 <span style="font-size:var(--font-size-sm); font-weight:normal;">/night</span></div>
                     </div>
-                    <button class="btn btn-primary btn-sm">View Deal</button>
+                    <a href="/EasyTrip/public/hotel-detail?id=<?= $hotel['id'] ?>" class="btn btn-primary btn-sm">View Deal</a>
                 </div>
             </div>
         </div>
-
-        <!-- Hotel 2 -->
-        <div class="hotel-card">
-            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=600&auto=format&fit=crop" class="hotel-card-img" alt="Hotel">
-            <div class="hotel-card-body">
-                <div class="hotel-rating">
-                    <span class="rating-badge">8.8</span>
-                    <span class="fw-medium">Fabulous</span>
-                    <span class="hotel-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
-                </div>
-                <h3 class="hotel-title">Burj Al Arab</h3>
-                <p class="hotel-location"><i class="fa-solid fa-location-dot"></i> Jumeirah, Dubai</p>
-                <div class="hotel-price-row">
-                    <div>
-                        <span style="font-size: var(--font-size-sm); color: var(--text-muted);">Starting from</span>
-                        <div class="hotel-price">$1,200 <span style="font-size:var(--font-size-sm); font-weight:normal;">/night</span></div>
-                    </div>
-                    <button class="btn btn-primary btn-sm">View Deal</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Hotel 3 -->
-        <div class="hotel-card">
-            <img src="https://images.unsplash.com/photo-1542314831-c6a4d27ece50?q=80&w=600&auto=format&fit=crop" class="hotel-card-img" alt="Hotel">
-            <div class="hotel-card-body">
-                <div class="hotel-rating">
-                    <span class="rating-badge">9.5</span>
-                    <span class="fw-medium">Exceptional</span>
-                    <span class="hotel-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
-                </div>
-                <h3 class="hotel-title">The Ritz London</h3>
-                <p class="hotel-location"><i class="fa-solid fa-location-dot"></i> Mayfair, London</p>
-                <div class="hotel-price-row">
-                    <div>
-                        <span style="font-size: var(--font-size-sm); color: var(--text-muted);">Starting from</span>
-                        <div class="hotel-price">$890 <span style="font-size:var(--font-size-sm); font-weight:normal;">/night</span></div>
-                    </div>
-                    <button class="btn btn-primary btn-sm">View Deal</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Hotel 4 -->
-        <div class="hotel-card">
-            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=600&auto=format&fit=crop" class="hotel-card-img" alt="Hotel">
-            <div class="hotel-card-body">
-                <div class="hotel-rating">
-                    <span class="rating-badge">8.5</span>
-                    <span class="fw-medium">Very Good</span>
-                    <span class="hotel-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
-                </div>
-                <h3 class="hotel-title">Swissôtel Zurich</h3>
-                <p class="hotel-location"><i class="fa-solid fa-location-dot"></i> Oerlikon, Zurich</p>
-                <div class="hotel-price-row">
-                    <div>
-                        <span style="font-size: var(--font-size-sm); color: var(--text-muted);">Starting from</span>
-                        <div class="hotel-price">$320 <span style="font-size:var(--font-size-sm); font-weight:normal;">/night</span></div>
-                    </div>
-                    <button class="btn btn-primary btn-sm">View Deal</button>
-                </div>
-            </div>
-        </div>
+        <?php 
+            endforeach;
+        else:
+        ?>
+            <p>No featured hotels available at the moment.</p>
+        <?php endif; ?>
     </div>
 </div>
 
-<!-- 10. Newsletter Section -->
-<div class="newsletter-section">
-    <h2>Save time, save money!</h2>
-    <p style="margin-top: 8px; font-size: var(--font-size-lg); opacity: 0.9;">Sign up and we'll send the best deals to you</p>
-    <div class="newsletter-form">
-        <input type="email" class="form-control" placeholder="Your email address" style="flex-grow: 1;">
-        <button class="btn btn-primary">Subscribe</button>
-    </div>
-</div>
 
-<!-- Travelpayouts Script -->
+
+
+<!-- Bootstrap Bundle (required for dropdowns) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Flatpickr (Date Picker) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<style>
+    .custom-guest-dropdown {
+        display: none;
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        width: 320px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        border: 1px solid #e7e7e7;
+        z-index: 1050;
+        padding: 20px;
+        color: #1a1a1a;
+    }
+    .custom-guest-dropdown.show {
+        display: block;
+    }
+    .guest-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        font-weight: 500;
+    }
+    .guest-controls {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    .guest-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid #0071c2;
+        background: transparent;
+        color: #0071c2;
+        font-size: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .guest-btn:hover {
+        background: #f0f8ff;
+    }
+    .guest-count {
+        min-width: 20px;
+        text-align: center;
+    }
+</style>
+
 <script
     data-noptimize="1"
     data-cfasync="false"
@@ -289,6 +329,48 @@
             document.getElementById('tpwl-search').style.display = 'none';
             document.getElementById('local-hotel-search').style.display = 'block';
         }
+    }
+
+    // Initialize Date Range Picker
+    if(document.getElementById("dateRange")) {
+        flatpickr("#dateRange", {
+            mode: "range",
+            minDate: "today",
+            dateFormat: "M j, Y",
+            altInput: true,
+            altFormat: "D, M j",
+            showMonths: 2
+        });
+    }
+
+    // Custom Guest Dropdown Logic
+    function toggleGuestDropdown(e) {
+        e.stopPropagation();
+        document.getElementById('guestDropdownMenu').classList.toggle('show');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        let menu = document.getElementById('guestDropdownMenu');
+        let toggleBtn = document.getElementById('guestDropdownToggle');
+        if (menu && menu.classList.contains('show') && !menu.contains(e.target) && !toggleBtn.contains(e.target)) {
+            menu.classList.remove('show');
+        }
+    });
+
+    let guests = { adults: 2, children: 0, rooms: 1 };
+    window.updateGuest = function(type, change) {
+        let newValue = guests[type] + change;
+        if(type === 'adults' && newValue < 1) return;
+        if(type === 'children' && newValue < 0) return;
+        if(type === 'rooms' && newValue < 1) return;
+        
+        guests[type] = newValue;
+        document.getElementById(type + 'Count').innerText = newValue;
+        document.getElementById('input' + type.charAt(0).toUpperCase() + type.slice(1)).value = newValue;
+        
+        let summary = `${guests.adults} adults, ${guests.children} children, ${guests.rooms} room${guests.rooms > 1 ? 's' : ''}`;
+        document.getElementById('guestSummary').innerText = summary;
     }
 </script>
 

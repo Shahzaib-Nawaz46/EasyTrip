@@ -22,11 +22,10 @@
         
         <nav class="navbar-menu">
             <ul class="navbar-nav">
+                <li><a href="/EasyTrip/public/"><i class="fa-solid fa-house"></i> Home</a></li>
                 <li><a href="/EasyTrip/public/"><i class="fa-solid fa-plane"></i> Flights</a></li>
                 <li><a href="/EasyTrip/public/hotels"><i class="fa-solid fa-bed"></i> Hotels</a></li>
-                <li><a href="#"><i class="fa-solid fa-car"></i> Car Rental</a></li>
-                <li><a href="#"><i class="fa-solid fa-ticket"></i> Attractions</a></li>
-                <li><a href="#"><i class="fa-solid fa-tag"></i> Deals</a></li>
+                <li><a href="#"><i class="fa-solid fa-envelope"></i> Contact</a></li>
             </ul>
         </nav>
         
